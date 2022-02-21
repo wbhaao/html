@@ -1,0 +1,13 @@
+a{
+    color: azure;
+    text-decoration: none;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+    background-color: black;
+}
+
+/* focus : 누를때, hover : 닿일때 */
+
+a:hover{
+    font-size: 50px;
+}
