@@ -1,0 +1,29 @@
+a{
+    font-size: 20px;
+    text-decoration-line: none;
+    color: black;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+}
+body{
+    text-align: center;
+}
+
+a:focus{
+    outline: 0;
+}
+a:hover{
+    color: white;
+    font-size: 180%;
+    background-color: black;
+}
+
+img{
+    border: 6px solid rgb(56, 169, 214);
+    border-radius: 500px;
+}
+
+#title{
+    font-weight: bolder;
+    font-size: 28px;
+}
