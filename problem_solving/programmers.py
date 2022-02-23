@@ -520,4 +520,65 @@
 
 # print(solution(	[95, 90, 99, 99, 80, 99], [1, 1, 1, 1, 1, 1]))
 
+# 더 맵게
+# 이론으로만. 효율성이 떨어진다
+# def solution(scoville, K):
+#     cnt = 0
+#     _scoville = scoville
+#     while True:
+#         t = True
+#         for s in _scoville:
+#             if K > s:
+#                 # 오류 : 제외를 해야 하는데 삭제를 해버림 // 삭제를 하면 list 길이가 1일때 계산을 못함
+#                 # 고칠 방법1. if문으로 하기 // 2.tempList 만들고 나중에 삭제하기 // 난 1번
+#                 t = False
+#                 if not (len(_scoville) <= 1):
+#                     first = min(_scoville) # 가장 작은값 뽑기
+#                     del _scoville[_scoville.index(first)] # 중복 안되게 제거
+                    
+#                     second = min(_scoville) # 두번째로 작은값 뽑기
+#                     del _scoville[_scoville.index(second)] # 중복 안되게 제거
+#                 else:
+#                     return -1
+#                 _scoville.append(first + (second * 2))
+#                 cnt += 1
+#         if t == True:
+#             return cnt
 
+
+# print(solution([1,2], 7))
+
+def solution(scoville, K):
+    cnt = 0
+    _scoville = sorted(scoville)
+    while K > _scoville[0]:
+        if len(_scoville) <= 1:
+            return -1
+        # 오류 : 제외를 해야 하는데 삭제를 해버림 // 삭제를 하면 list 길이가 1일때 계산을 못함
+        # 고칠 방법1. if문으로 하기 // 2.tempList 만들고 나중에 삭제하기 // 난 1번
+        if not (len(_scoville) <= 1):
+            _scoville.append(_scoville.pop(_scoville.index(min(_scoville))) + (_scoville.pop(_scoville.index(min(_scoville))) * 2)) # 추가
+        cnt += 1
+    return cnt
+
+print(solution([1, 2, 3, 9, 10, 12], 7))
+
+
+
+
+import heapq
+
+def solution(scoville, K):
+    cnt = 0
+    scoville.sort()
+    while scoville[0] < K:
+        if len(scoville) <= 1:
+            return -1
+        else:
+            small = heapq.heappop(scoville)
+            small2 = heapq.heappop(scoville)
+            heapq.heappush(scoville, (small + (small2 * 2)))
+            cnt += 1
+    return cnt
+
+# print(solution([1, 2, 3, 9, 10, 12], 7))

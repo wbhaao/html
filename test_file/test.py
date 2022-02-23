@@ -1,1 +1,4 @@
-print(chr(44193))
+lst = [1,2,3,1]
+
+print(lst.sort())
+print(lst)
