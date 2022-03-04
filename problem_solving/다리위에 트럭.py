@@ -1,33 +1,25 @@
-from queue import Queue
-
 # 실패
 
 def solution(bridge_length, weight, truck_weights):
     truck_list = []
     cnt = 0
-
-    # 다리위에 트럭과 대기하고 있는 트럭이 하나도 없다면
+    # 다리위에 트럭과 대기하고 있는 트럭이 하나라도 있다면
     while not (sum(truck_list) == 0 and len(truck_weights) == 0):
         # 트럭이 다리길이만큼 전진했나
         if len(truck_list) >= bridge_length:
             # 앞이 0이 아니라면 
-            if not (truck_list[0] == 0):
-                del truck_list[0]
-                cnt += 1
-            else:
-                del truck_list[0]
-        try: # 에러가 났다는건 list에 하나가 있고 wei엔 아무것도 없음
-            if sum(truck_list)+truck_weights[0] > weight: # 트럭을 더이상 못싦는다
-                truck_list.append(0) # 트럭 한칸 전진
-                cnt += 1
-            else:
+            # if not (truck_list[0] == 0):
+            del truck_list[0]
+            # else:
+                # del truck_list[0]
+        if not (len(truck_weights) == 0):
+            # 더 싦을 수 있다면
+            if sum(truck_list)+truck_weights[0] > weight:
+                # truck_weight[0] 삭제하고 append 
                 truck_list.append(truck_weights.pop(0))
-                cnt += 1
-        except:
-            cnt += 1
-            break
+        truck_list.append(0)
+        cnt += 1        
     return cnt
-
 
 def solution(bridge_length, weight, truck_weights):
     #추상화: 남은 트럭들 중 넣을 수 있는 타이밍 잡기
