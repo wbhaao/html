@@ -548,37 +548,70 @@
 
 # print(solution([1,2], 7))
 
-def solution(scoville, K):
-    cnt = 0
-    _scoville = sorted(scoville)
-    while K > _scoville[0]:
-        if len(_scoville) <= 1:
-            return -1
+# def solution(scoville, K):
+#     cnt = 0
+#     _scoville = sorted(scoville)
+#     while K > _scoville[0]:
+#         if len(_scoville) <= 1:
+#             return -1
         # 오류 : 제외를 해야 하는데 삭제를 해버림 // 삭제를 하면 list 길이가 1일때 계산을 못함
         # 고칠 방법1. if문으로 하기 // 2.tempList 만들고 나중에 삭제하기 // 난 1번
-        if not (len(_scoville) <= 1):
-            _scoville.append(_scoville.pop(_scoville.index(min(_scoville))) + (_scoville.pop(_scoville.index(min(_scoville))) * 2)) # 추가
-        cnt += 1
-    return cnt
-
-print(solution([1, 2, 3, 9, 10, 12], 7))
-
-
-
-
-import heapq
-
-def solution(scoville, K):
-    cnt = 0
-    scoville.sort()
-    while scoville[0] < K:
-        if len(scoville) <= 1:
-            return -1
-        else:
-            small = heapq.heappop(scoville)
-            small2 = heapq.heappop(scoville)
-            heapq.heappush(scoville, (small + (small2 * 2)))
-            cnt += 1
-    return cnt
+        # pop 개느림
+#         if not (len(_scoville) <= 1):
+#             _scoville.append(_scoville.pop(_scoville.index(min(_scoville))) + (_scoville.pop(_scoville.index(min(_scoville))) * 2)) # 추가
+#         cnt += 1
+#     return cnt
 
 # print(solution([1, 2, 3, 9, 10, 12], 7))
+
+
+
+
+# import heapq
+
+# def solution(scoville, K):
+#     cnt = 0
+#     scoville.sort()
+#     while scoville[0] < K:
+#         if len(scoville) <= 1:
+#             return -1
+#         else:
+#             small = heapq.heappop(scoville)
+#             small2 = heapq.heappop(scoville)
+#             heapq.heappush(scoville, (small + (small2 * 2)))
+#             cnt += 1
+#     return cnt
+
+# print(solution([1, 2, 3, 9, 10, 12], 7))
+
+# 주식가격
+
+# def solution(prices):
+#     answer = []
+#     for p in range(len(prices)-1): # 마지막 값은 무조건 0이라 계산 안해도 됌
+#         for p2 in range(p+1, len(prices)-1): # p+1 : p포함 p 뒷번호 제외
+#             if prices[p] > prices[p2]: # p보다 작은 값이 있다면
+#                 answer.append(p2 - p) # p2와 p 사이 거리 append
+#                 break
+#         if len(answer) < p+1:
+#             # p 미만으로 내려가지 않았을때 나와 내 뒷번호 제외 숫자 개수 append
+#             answer.append(len(prices) - (p+1)) 
+#     answer.append(0)
+#     return answer
+
+# 해야할거
+
+def solution(prices):
+    stack = []
+    answer = [0] * len(prices)
+    for i in range(len(prices)):
+        if stack != []: # 스택이 비지 않았다면
+            while stack != [] and stack[-1][1] > prices[i]: # 스택이 비었고 
+                past, _ = stack.pop()
+                answer[past] = i - past
+        stack.append([i, prices[i]])
+    for i, s in stack:
+        answer[i] = len(prices) - 1 - i
+    return answer
+
+print(solution([1, 2, 3, 2, 3]))
