@@ -1,4 +1,6 @@
-lst = [1,2,3,1]
 
-print(lst.sort())
-print(lst)
+from collections import deque
+
+lst = deque([1,2,3,4])
+
+print(lst.popleft())

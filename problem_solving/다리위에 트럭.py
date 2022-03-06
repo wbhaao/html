@@ -1,27 +1,30 @@
 # 실패
 
+from collections import deque
+
 def solution(bridge_length, weight, truck_weights):
-    truck_list = [0]
+    truck_weights = deque(truck_weights)
+    truck_list = deque([0] * bridge_length)
+    bridge_weights = 0
     cnt = 0
     # 다리위에 트럭과 대기하고 있는 트럭이 하나라도 있다면
-    while not (sum(truck_list) == 0 and len(truck_weights) == 0):
-        # 트럭이 다리길이만큼 전진했나
-        if len(truck_list) >= bridge_length:
-            del truck_list[0]
+    while True:
+        bridge_weights -= truck_list.popleft()
+        # 준비하고 있는 트럭이 있다면
 
-        # 그러지 않았다면 한칸 전진
-        if not (len(truck_weights) == 0):
+        if truck_weights:
             # 더 싦을 수 있다면
-            if not (sum(truck_list)+truck_weights[0] > weight):
+            if not (bridge_weights+truck_weights[0] > weight):
                 # truck_weight[0] 삭제하고 append 
-                truck_list.append(truck_weights.pop(0))
+                truck_list.append(truck_weights.popleft())
+                bridge_weights += truck_list[-1]
             else:
                 truck_list.append(0)
-            cnt += 1  
+            
+        # 준비중인 트럭이 없다면
         else:
             return cnt + bridge_length
-    return cnt
-
+        cnt += 1  
 print(solution(2, 10, [7,4,5,6]))
 
 def solution(bridge_length, weight, truck_weights):
