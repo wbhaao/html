@@ -1,25 +1,28 @@
 # 실패
 
 def solution(bridge_length, weight, truck_weights):
-    truck_list = []
+    truck_list = [0]
     cnt = 0
     # 다리위에 트럭과 대기하고 있는 트럭이 하나라도 있다면
     while not (sum(truck_list) == 0 and len(truck_weights) == 0):
         # 트럭이 다리길이만큼 전진했나
         if len(truck_list) >= bridge_length:
-            # 앞이 0이 아니라면 
-            # if not (truck_list[0] == 0):
             del truck_list[0]
-            # else:
-                # del truck_list[0]
+
+        # 그러지 않았다면 한칸 전진
         if not (len(truck_weights) == 0):
             # 더 싦을 수 있다면
-            if sum(truck_list)+truck_weights[0] > weight:
+            if not (sum(truck_list)+truck_weights[0] > weight):
                 # truck_weight[0] 삭제하고 append 
                 truck_list.append(truck_weights.pop(0))
-        truck_list.append(0)
-        cnt += 1        
+            else:
+                truck_list.append(0)
+            cnt += 1  
+        else:
+            return cnt + bridge_length
     return cnt
+
+print(solution(2, 10, [7,4,5,6]))
 
 def solution(bridge_length, weight, truck_weights):
     #추상화: 남은 트럭들 중 넣을 수 있는 타이밍 잡기
@@ -45,6 +48,4 @@ def solution(bridge_length, weight, truck_weights):
                 del truck_weights[0]
         bridge.append(nextNum)
         
-    return answer
-
-print(solution(2, 10, [7,4,5,6]))
+#     return answer
