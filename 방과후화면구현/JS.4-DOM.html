@@ -1,0 +1,30 @@
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    h3 {
+      color: red;
+    }
+
+    >
+  </style>
+</head>
+
+<body>
+  <button onclick="textContents()">textContent로 표시</button>
+  <button onclick="innhtml()">innerHTML로 표시</button>
+  <h1>현재 시각:</h1>
+  <div id="current"></div>
+
+  <script>
+    let now = new Date();
+    let $curDiv = document.getElementById("current");
+
+    function innhtml() {
+      $curDiv.textContent = now;
+    }
+    // tetContent는 함수실행 안됨
+    function textContents() {
+      $curDiv.innerHTML = "<h3>" + now + "</h3>";
+    }
+  </script>
+</body>
